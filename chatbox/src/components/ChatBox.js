@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
-import "./ChatBox.css"; // Import CSS file
+import "../App.css";
 
 const ChatBox = () => {
   const [messages, setMessages] = useState([]);
@@ -9,40 +9,41 @@ const ChatBox = () => {
   const handleSend = async () => {
     if (input.trim()) {
       const userMessage = { text: input, sender: "You" };
-      setMessages([...messages, userMessage]);
+      setMessages((prevMessages) => [...prevMessages, userMessage]);
 
-      const botResponse = await getBotResponse(input);
-      setMessages((prevMessages) => [...prevMessages, botResponse]);
+      const replyResponse = await getreplyResponse(input);
+      setMessages((prevMessages) => [...prevMessages, replyResponse]);
 
       setInput(""); // Clear input field after sending
     }
   };
 
-  const getBotResponse = async (message) => {
+  const getreplyResponse = async (message) => {
     if (message.toLowerCase() === "hi") {
-      return { text: "Hi! Would you like to check the status of your app?" };
+      return { text: "Hi! I am happy to help you. Would you like to know the status of your app?" };
     }
     if (message.toLowerCase() === "yes") {
-        return { text: "Please provide your app ID to check the status.", sender: "Bot" };
-      }
-  
+      return { text: "Please provide your app ID to check the status." };
+    }
+
     try {
-      const response = await axios.get(`http://localhost:3000?app=${message}`);
-      return { text: `The status of ${message} is: ${response.data.status}`, sender: "Bot" };
+      const response = await axios.get(`http://localhost:5000/status?app=${message}`);
+      return { text: `The status of ${message} is: ${response.data.status}` };
     } catch (error) {
-      return { text: "Sorry, I couldn't fetch the app status. Please try again.", sender: "Bot" };
+      return { text: "Sorry, I couldn't fetch the app status. Please try again." };
     }
   };
 
   return (
     <div className="chat-container">
-      <div className="chat-window">
-        {messages.map((msg, index) => (
-          <div key={index} className={msg.sender === "You" ? "user-message" : "bot-message"}>
-            <strong>{msg.sender}:</strong> {msg.text}
-          </div>
-        ))}
-      </div>
+     <div className="chat-window">
+  {messages.map((msg, index) => (
+    <div key={index} className={msg.sender === "You" ? "user-message" : "reply-message"}>
+      {msg.text}
+    </div>
+  ))}
+</div>
+
       <div className="input-container">
         <input
           type="text"
@@ -50,6 +51,11 @@ const ChatBox = () => {
           onChange={(e) => setInput(e.target.value)}
           className="chat-input"
           placeholder="Type a message..."
+          onKeyDown={(e) => {
+            if (e.key === "Enter") {
+              handleSend();
+            }
+          }}
         />
         <button onClick={handleSend} className="send-button">Send</button>
       </div>

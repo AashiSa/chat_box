@@ -1,38 +1,145 @@
-.App {
-  text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+/* Chat Container */
+.chat-container {
   display: flex;
   flex-direction: column;
+  height: 100vh;
+  padding-top: 50px; /* Space for navbar */
+  padding-bottom: 60px; /* Space for input field */
   align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+}
+
+/* Chat Window */
+.chat-window {
+  flex-grow: 1;
+  width: 100%;
+  max-width: 800px;
+  overflow-y: auto;
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Message Container */
+.message-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 10px;
+  width: 100%;
+}
+
+/* User Message (Align Right) */
+.user-message {
+  align-self: flex-end;
+  background-color: #007bff;
   color: white;
+  padding: 12px;
+  border-radius: 10px;
+  max-width: 60%;
+  text-align: left;
+  margin: 5px;
+  word-wrap: break-word;
+  border-top-right-radius: 0;
 }
 
-.App-link {
-  color: #61dafb;
+/* Bot Reply Message (Align Left) */
+.reply-message {
+  align-self: flex-start;
+  background-color: #e0e0e0;
+  color: black;
+  padding: 12px;
+  border-radius: 10px;
+  max-width: 60%;
+  text-align: left;
+  margin: 5px;
+  word-wrap: break-word;
+  border-top-left-radius: 0;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+/* Input Container */
+.input-container {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background-color: #fff;
+  border-top: 1px solid #ccc;
+  display: flex;
+  align-items: center;
+  padding: 10px;
+}
+
+/* Chat Input */
+.chat-input {
+  flex: 1;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-right: 10px;
+  font-size: 16px;
+}
+
+/* Send Button */
+.send-button {
+  padding: 10px 15px;
+  border: none;
+  background-color: #007bff;
+  color: white;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.send-button:hover {
+  background-color: #0056b3;
+}
+
+/* Navbar Styling */
+.navbar {
+  display: flex;
+  justify-content: space-between;  /* Ensures Home is on the right */
+  align-items: center;
+  padding: 10px 20px;
+  background-color: #fff;
+  border-bottom: 2px solid #ddd;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+}
+
+.nav-link {
+  text-decoration: none;
+  color: black;
+  font-size: 16px;
+  margin-left: 20px; /* Adds space from title */
+}
+
+.nav-link:hover {
+  color: blue;
+}
+
+/* Hide scrollbar for Chrome, Safari, and Edge */
+.chat-window::-webkit-scrollbar {
+  width: 8px;
+  display: none;
+}
+
+.chat-window:hover::-webkit-scrollbar {
+  display: block;
+}
+
+.chat-window::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.3);
+  border-radius: 5px;
+}
+
+/* Hide scrollbar for Firefox */
+html {
+  scrollbar-width: none;
+}
+
+/* Hide scrollbar for IE and Edge */
+body {
+  -ms-overflow-style: none;
 }

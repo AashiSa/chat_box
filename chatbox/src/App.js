@@ -1,10 +1,12 @@
 import React from "react";
+import Navbar from "./components/Navbar";
 import ChatBox from "./components/ChatBox";
+import "./App.css";
 
 function App() {
   return (
-    <div>
-      <h1>React Chat Box</h1>
+    <div className="app-container">
+      <Navbar />
       <ChatBox />
     </div>
   );
